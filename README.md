@@ -9,7 +9,8 @@
 
 ## 📸 Demo
 
-*Screenshots will be added here*
+![Homepage](images/demo-homepage.png)
+*University Management System - Clean and intuitive interface for managing students and courses*
 
 ## ✨ Features
 
