@@ -1,7 +1,11 @@
 package com.prisma77.crud.controller;
 
 import com.prisma77.crud.domain.Student;
+import com.prisma77.crud.domain.Course;
+import com.prisma77.crud.domain.Enrollment;
 import com.prisma77.crud.service.StudentService;
+import com.prisma77.crud.service.CourseService;
+import com.prisma77.crud.service.EnrollmentService;
 import com.prisma77.crud.util.PageInfo;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,6 +24,8 @@ import java.util.List;
 public class StudentController extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
     private StudentService studentService = new StudentService();
+    private CourseService courseService = new CourseService();
+    private EnrollmentService enrollmentService = new EnrollmentService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -97,7 +103,29 @@ public class StudentController extends HttpServlet {
             return;
         }
 
+        // 현재 수강 중인 강좌 목록
+        List<Enrollment> enrollments = enrollmentService.getEnrollmentsByStudentId(id);
+
+        // 수강 가능한 강좌 목록 (전체 강좌에서 수강 중인 강좌 제외)
+        List<Course> allCourses = courseService.getAllCourses();
+        List<Course> availableCourses = new ArrayList<>();
+
+        for (Course course : allCourses) {
+            boolean isEnrolled = false;
+            for (Enrollment enrollment : enrollments) {
+                if (enrollment.getCourseId().equals(course.getId())) {
+                    isEnrolled = true;
+                    break;
+                }
+            }
+            if (!isEnrolled) {
+                availableCourses.add(course);
+            }
+        }
+
         request.setAttribute("student", student);
+        request.setAttribute("enrollments", enrollments);
+        request.setAttribute("availableCourses", availableCourses);
         request.getRequestDispatcher("/WEB-INF/views/student/detail.jsp").forward(request, response);
     }
 

@@ -44,6 +44,16 @@ public class CourseService {
         }
     }
 
+    public List<Course> getAllCourses() {
+        try (SqlSession session = DatabaseConfig.getSqlSessionFactory().openSession()) {
+            CourseRepository repository = session.getMapper(CourseRepository.class);
+            return repository.findAll();
+        } catch (Exception e) {
+            logger.error("전체 강좌 조회 실패", e);
+            throw new RuntimeException("강좌 목록 조회 중 오류가 발생했습니다.", e);
+        }
+    }
+
     public void createCourse(Course course) {
         validateCourse(course);
 

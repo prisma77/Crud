@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="pageTitle" value="강좌 상세정보" scope="request"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
@@ -7,7 +8,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>📚 강좌 상세정보</h2>
         <div>
@@ -18,7 +19,11 @@
         </div>
       </div>
 
-      <div class="card">
+      <!-- 강좌 기본 정보 -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <h5 class="mb-0">📋 강좌 정보</h5>
+        </div>
         <div class="card-body">
           <table class="table table-borderless">
             <tr>
@@ -27,7 +32,7 @@
             </tr>
             <tr>
               <th>강의코드:</th>
-              <td><span class="badge bg-primary fs-6">${course.code}</span></td>
+              <td><span class="badge badge-primary">${course.code}</span></td>
             </tr>
             <tr>
               <th>과목명:</th>
@@ -39,13 +44,55 @@
             </tr>
             <tr>
               <th>학점:</th>
-              <td><span class="badge bg-success">${course.credit}학점</span></td>
+              <td><span class="badge badge-success">${course.credit}학점</span></td>
             </tr>
             <tr>
               <th>등록일:</th>
               <td>${course.createdAt}</td>
             </tr>
           </table>
+        </div>
+      </div>
+
+      <!-- 수강자 목록 -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <h5 class="mb-0">👥 수강자 목록 (총 ${enrollments.size()}명)</h5>
+        </div>
+        <div class="card-body">
+          <c:if test="${empty enrollments}">
+            <div class="alert alert-info">아직 수강신청한 학생이 없습니다.</div>
+          </c:if>
+          <c:if test="${not empty enrollments}">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead class="thead-light">
+                <tr>
+                  <th>학번</th>
+                  <th>이름</th>
+                  <th>이메일</th>
+                  <th>학과</th>
+                  <th>수강신청일</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="enrollment" items="${enrollments}">
+                  <tr>
+                    <td>${enrollment.student.studentNo}</td>
+                    <td>
+                      <a href="${pageContext.request.contextPath}/students/${enrollment.student.id}">
+                          ${enrollment.student.name}
+                      </a>
+                    </td>
+                    <td>${enrollment.student.email}</td>
+                    <td>${enrollment.student.dept}</td>
+                    <td>${enrollment.enrolledAt}</td>
+                  </tr>
+                </c:forEach>
+                </tbody>
+              </table>
+            </div>
+          </c:if>
         </div>
       </div>
 

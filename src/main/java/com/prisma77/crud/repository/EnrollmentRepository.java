@@ -7,7 +7,9 @@ import java.util.List;
 @Mapper
 public interface EnrollmentRepository {
 
-    @Select("SELECT e.*, s.student_no, s.name as student_name, c.code, c.title as course_title " +
+    @Select("SELECT e.*, " +
+            "s.id as student_id, s.student_no, s.name as student_name, s.email as student_email, s.dept as student_dept, " +
+            "c.id as course_id, c.code, c.title as course_title, c.professor, c.credit " +
             "FROM enrollment e " +
             "JOIN student s ON e.student_id = s.id " +
             "JOIN course c ON e.course_id = c.id " +
@@ -17,14 +19,22 @@ public interface EnrollmentRepository {
             @Result(property = "studentId", column = "student_id"),
             @Result(property = "courseId", column = "course_id"),
             @Result(property = "enrolledAt", column = "enrolled_at"),
+            @Result(property = "student.id", column = "student_id"),
             @Result(property = "student.studentNo", column = "student_no"),
             @Result(property = "student.name", column = "student_name"),
+            @Result(property = "student.email", column = "student_email"),
+            @Result(property = "student.dept", column = "student_dept"),
+            @Result(property = "course.id", column = "course_id"),
             @Result(property = "course.code", column = "code"),
-            @Result(property = "course.title", column = "course_title")
+            @Result(property = "course.title", column = "course_title"),
+            @Result(property = "course.professor", column = "professor"),
+            @Result(property = "course.credit", column = "credit")
     })
     List<Enrollment> findByStudentId(@Param("studentId") Long studentId);
 
-    @Select("SELECT e.*, s.student_no, s.name as student_name, c.code, c.title as course_title " +
+    @Select("SELECT e.*, " +
+            "s.id as student_id, s.student_no, s.name as student_name, s.email as student_email, s.dept as student_dept, " +
+            "c.id as course_id, c.code, c.title as course_title, c.professor, c.credit " +
             "FROM enrollment e " +
             "JOIN student s ON e.student_id = s.id " +
             "JOIN course c ON e.course_id = c.id " +
@@ -34,10 +44,16 @@ public interface EnrollmentRepository {
             @Result(property = "studentId", column = "student_id"),
             @Result(property = "courseId", column = "course_id"),
             @Result(property = "enrolledAt", column = "enrolled_at"),
+            @Result(property = "student.id", column = "student_id"),
             @Result(property = "student.studentNo", column = "student_no"),
             @Result(property = "student.name", column = "student_name"),
+            @Result(property = "student.email", column = "student_email"),
+            @Result(property = "student.dept", column = "student_dept"),
+            @Result(property = "course.id", column = "course_id"),
             @Result(property = "course.code", column = "code"),
-            @Result(property = "course.title", column = "course_title")
+            @Result(property = "course.title", column = "course_title"),
+            @Result(property = "course.professor", column = "professor"),
+            @Result(property = "course.credit", column = "credit")
     })
     List<Enrollment> findByCourseId(@Param("courseId") Long courseId);
 

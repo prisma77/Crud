@@ -16,6 +16,9 @@ public interface CourseRepository {
     @Select("SELECT * FROM course WHERE id = #{id}")
     Course findById(@Param("id") Long id);
 
+    @Select("SELECT * FROM course ORDER BY id DESC")
+    List<Course> findAll();
+
     @Select("SELECT * FROM course WHERE code = #{code}")
     Course findByCode(@Param("code") String code);
 
