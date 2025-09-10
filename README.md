@@ -146,18 +146,57 @@ http://localhost:8080/crud
 src/
 ├── main/
 │   ├── java/com/prisma77/crud/
-│   │   ├── controller/          # Web controllers
-│   │   ├── service/             # Business logic
-│   │   ├── repository/          # Data access layer
-│   │   ├── domain/              # Entity classes
-│   │   ├── config/              # Configuration
-│   │   └── util/                # Utilities
+│   │   ├── controller/              # Web controllers
+│   │   │   ├── CourseController.java
+│   │   │   ├── EnrollmentController.java
+│   │   │   ├── HomeController.java
+│   │   │   └── StudentController.java
+│   │   ├── service/                 # Business logic
+│   │   │   ├── CourseService.java
+│   │   │   ├── EnrollmentService.java
+│   │   │   └── StudentService.java
+│   │   ├── repository/              # Data access layer
+│   │   │   ├── CourseRepository.java
+│   │   │   ├── EnrollmentRepository.java
+│   │   │   └── StudentRepository.java
+│   │   ├── domain/                  # Entity classes
+│   │   │   ├── Course.java
+│   │   │   ├── Enrollment.java
+│   │   │   └── Student.java
+│   │   ├── config/                  # Configuration
+│   │   │   ├── DatabaseConfig.java
+│   │   │   └── EncodingFilter.java
+│   │   ├── util/                    # Utilities
+│   │   │   └── PageInfo.java
+│   │   └── HelloServlet.java        # Sample servlet
 │   ├── resources/
-│   │   ├── config/              # Configuration files
-│   │   └── logback.xml          # Logging config
+│   │   ├── config/                  # Configuration files
+│   │   │   ├── database.properties
+│   │   │   └── mybatis-config.xml
+│   │   └── logback.xml              # Logging config
 │   └── webapp/
-│       ├── WEB-INF/views/       # JSP templates
-│       └── index.jsp            # Welcome page
+│       ├── WEB-INF/
+│       │   ├── views/               # JSP templates
+│       │   │   ├── common/          # Common templates
+│       │   │   │   ├── footer.jsp
+│       │   │   │   ├── header.jsp
+│       │   │   │   └── nav.jsp
+│       │   │   ├── course/          # Course pages
+│       │   │   │   ├── detail.jsp
+│       │   │   │   ├── form.jsp
+│       │   │   │   └── list.jsp
+│       │   │   ├── student/         # Student pages
+│       │   │   │   ├── detail.jsp
+│       │   │   │   ├── form.jsp
+│       │   │   │   └── list.jsp
+│       │   │   ├── error/           # Error pages
+│       │   │   │   ├── 404.jsp
+│       │   │   │   ├── 500.jsp
+│       │   │   │   └── error.jsp
+│       │   │   └── home.jsp         # Home page
+│       │   └── web.xml              # Web configuration
+│       └── index.jsp                # Welcome page
+
 ```
 
 ## 🤝 Contributing
