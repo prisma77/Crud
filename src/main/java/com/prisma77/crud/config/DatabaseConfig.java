@@ -21,7 +21,7 @@ public class DatabaseConfig {
         try {
             // 1. 데이터베이스 설정 프로퍼티 파일 로드
             Properties props = new Properties();
-            try (InputStream input = DatabaseConfig.class.getClassLoader().getResourceAsStream("config/database.properties")) {
+            try (InputStream input = DatabaseConfig.class.getClassLoader().getResourceAsStream("db/dev.properties")) {
                 props.load(input);
             }
 
